@@ -8,7 +8,7 @@ import Where from './call/Where.js';
 
 dotenv.config()
 const jsonParser = bodyParser.json();
-const port = process.env.PORT || 8000;
+const port = process.env.PORT;
 const app = express();
 app.use(cors());
 
@@ -23,6 +23,10 @@ app.get('/api', jsonParser, async (req, res) => {
 
 });
 
+app.get('/',jsonParser, async (req, res) => {
+    res.send('API')
+})
+
 app.get('/select', jsonParser, async (req, res) => {
     Where(req.query.tags)
         .then(result => res.send(result))
@@ -30,5 +34,5 @@ app.get('/select', jsonParser, async (req, res) => {
 });
 
 app.listen(port, () => {
-    console.log('server listening on port 8000!');
+    console.log(`server listening on port ${port}`);
 });
